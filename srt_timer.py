@@ -61,6 +61,10 @@ def convert(arguments):
     new_subtitles = []
     last_end = timedelta(0)
 
+    with open(arguments.input) as input_file:
+        content = input_file.read()
+    original_srt = srt.parse(content)
+
     if arguments.sdiff:
         with open(arguments.sdiff) as sdiff_file:
             content = sdiff_file.read()
@@ -71,7 +75,7 @@ def convert(arguments):
             stripped_time = float(flags['strip'])
             stripped_time = timedelta(seconds=stripped_time)
 
-            original = filter(lambda s: s.start > stripped_time, original)
+            original_srt = filter(lambda s: s.start > stripped_time, original_srt)
             last_end = stripped_time
 
     elif arguments.original_timing and arguments.new_timing:
@@ -79,7 +83,7 @@ def convert(arguments):
         new = _get_subtitles_from_file(arguments.new_timing)
 
         if arguments.strip_original:
-            original = islice(original, arguments.strip_original, None)
+            original_srt = islice(original_srt, arguments.strip_original, None)
 
         start, end = _get_mapping(original, new)
     else:
@@ -87,11 +91,7 @@ def convert(arguments):
               '`from_timing` and `to_timing` argumetns'
         raise argparse.ArgumentError(msg)
 
-    with open(arguments.input) as input_file:
-        content = input_file.read()
-    original = srt.parse(content)
-
-    for subtitle in original:
+    for subtitle in original_srt:
         duration = subtitle.end - subtitle.start
         new_start, start_proximity = _get_proximate(subtitle.start, start)
         new_end, end_proximity = _get_proximate(subtitle.end, end)
