@@ -1,9 +1,9 @@
 #!/usr/bin/python
+from datetime import timedelta
+from itertools import islice
 import argparse
 import srt
 import sdiff
-from datetime import timedelta
-from itertools import islice
 
 
 def _get_proximate(time, sdiff_dict):
@@ -61,9 +61,7 @@ def convert(arguments):
     new_subtitles = []
     last_end = timedelta(0)
 
-    with open(arguments.input) as input_file:
-        content = input_file.read()
-    original_srt = srt.parse(content)
+    original_srt = _get_subtitles_from_file(arguments.input)
 
     if arguments.sdiff:
         with open(arguments.sdiff) as sdiff_file:
@@ -89,7 +87,7 @@ def convert(arguments):
     else:
         msg = 'You must either provide `sdiff` or ' \
               '`from_timing` and `to_timing` argumetns'
-        raise argparse.ArgumentError(msg)
+        raise argparse.ArgumentError(arguments.sdiff, msg)
 
     for subtitle in original_srt:
         duration = subtitle.end - subtitle.start
@@ -179,4 +177,8 @@ if __name__ == '__main__':
 
     args = parser.parse_args()
     if args.func:
-        args.func(args)
+        try:
+            args.func(args)
+        except (FileNotFoundError, argparse.ArgumentError) as e:
+            import sys
+            sys.exit(str(e))
