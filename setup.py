@@ -36,6 +36,6 @@ setup(
     ],
 
     keywords='srt subtitles timing',
-    scripts=['srt-timer'],
+    scripts=['srt_timer.py'],
     py_modules=['sdiff'],
 )
