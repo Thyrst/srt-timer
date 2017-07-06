@@ -31,6 +31,10 @@ setup(
         'Programming Language :: Python :: 3.6',
     ],
 
+    install_requires=[
+        'srt',
+    ],
+
     keywords='srt subtitles timing',
     scripts=['srt-timer'],
     py_modules=['sdiff'],
