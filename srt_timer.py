@@ -136,7 +136,7 @@ def make_sdiff(arguments):
     start, end = _get_mapping(original, new)
 
     composed = '# %s --> %s\n' % (arguments.original_timing, arguments.new_timing)
-    composed += sdiff.compose(start, end, flags)
+    composed += sdiff.compose(start, end, **flags)
 
     _get_out(composed, arguments.output)
 
