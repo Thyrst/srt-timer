@@ -154,7 +154,8 @@ def reverse_sdiff(arguments):
     for flag, body in flags.items():
         new_flags.update(_reverse_flag(flag, body))
 
-    reversed_ = sdiff.compose(new_start, new_end, **new_flags)
+    reversed_ = '# reversed %s\n' % arguments.input
+    reversed_ += sdiff.compose(new_start, new_end, **new_flags)
 
     _get_out(reversed_, arguments.output)
 
