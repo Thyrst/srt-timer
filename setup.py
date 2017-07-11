@@ -1,6 +1,6 @@
 from setuptools import setup
 
-VERSION = '0.1'
+VERSION = '0.2'
 URL = 'https://github.com/Thyrst/srt-timer'
 
 description = open('README.rst').read()
