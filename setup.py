@@ -30,12 +30,15 @@ setup(
         'Topic :: Text Processing',
         'Programming Language :: Python :: 3.6',
     ],
+    keywords='srt subtitles timing',
 
     install_requires=[
         'srt',
     ],
 
-    keywords='srt subtitles timing',
+    entry_points={
+        'console_scripts': ['srt_timer=srt_timer:main'],
+    },
     scripts=['srt_timer.py'],
     py_modules=['sdiff'],
 )

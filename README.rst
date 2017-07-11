@@ -16,7 +16,7 @@ and then you can create repack2webdl.sdiff file with conversion information:
 
 .. code-block:: bash
 
-    $ srt_timer.py make_sdiff --strip-original 11 \
+    $ srt_timer make_sdiff --strip-original 11 \
     > "Fear the Walking Dead - 03x06 - Red Dirt.REPACK.SVA.English.C.orig.Addic7ed.com.srt" \
     > "Fear the Walking Dead - 03x06 - Red Dirt.WEB-DL RARBG.English.C.orig.Addic7ed.com.srt" \
     > --output repack2webdl.sdiff
@@ -28,7 +28,7 @@ Now you convert your Italian subtitles to 720p.WEB-DL-RARBG version with the cre
 
 .. code-block:: bash
 
-    $ srt_timer.py convert --sdiff repack2webdl.sdiff \
+    $ srt_timer convert --sdiff repack2webdl.sdiff \
     > "Fear the Walking Dead - 03x06 - Red Dirt.REPACK.SVA.Italian.C.orig.Addic7ed.com.srt" \
     > --output italian_webdl.srt
 
@@ -43,7 +43,7 @@ The package is on Pypi, so you can install it simply with ``pip install srt-time
 Usage manual
 ------------
 
-For help just type ``srt_timer.py --help`` or ``srt_timer.py [command] --help``
+For help just type ``srt_timer --help`` or ``srt_timer [command] --help``
 
 convert
 ^^^^^^^
