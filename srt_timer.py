@@ -57,6 +57,14 @@ def _get_subtitles_from_file(file):
     return srt.parse(content)
 
 
+def _get_out(text, output=None):
+    if output:
+        with open(output, 'w') as file:
+            file.write(text)
+    else:
+        print(text)
+
+
 def convert(arguments):
     new_subtitles = []
     last_end = timedelta(0)
@@ -107,34 +115,27 @@ def convert(arguments):
 
     new_subtitles = srt.compose(new_subtitles)
 
-    if arguments.output:
-        with open(arguments.output, 'w') as output:
-            output.write(new_subtitles)
-    else:
-        print(new_subtitles)
+    _get_out(new_subtitles, arguments.output)
 
 
 def make_sdiff(arguments):
     original = _get_subtitles_from_file(arguments.original_timing)
     new = _get_subtitles_from_file(arguments.new_timing)
+    flags = {}
 
     if arguments.strip_original:
         original = islice(original, arguments.strip_original - 1, None)
         last = next(original)
         stripped_seconds = last.end.total_seconds()
+        flags['strip'] = stripped_seconds
 
     start, end = _get_mapping(original, new)
-    composed = sdiff.compose(start, end)
 
-    if arguments.output:
-        with open(arguments.output, 'w') as output:
-            output.write('# %s --> %s\n' %
-                         (arguments.original_timing, arguments.new_timing))
-            if arguments.strip_original:
-                output.write(':strip %s\n' % stripped_seconds)
-            output.write(composed)
-    else:
-        print(composed)
+    composed = '# %s --> %s\n' % (arguments.original_timing, arguments.new_timing)
+    composed += sdiff.compose(start, end, flags)
+
+    _get_out(composed, arguments.output)
+
 
 if __name__ == '__main__':
     description = 'Script for simple creating subtitles with new timing.'
