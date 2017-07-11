@@ -12,7 +12,7 @@ setup(
 
     description='Simple script for saving difference of two subtitle timings. ' \
                 'You can than easily convert subtitle from one timing to another.',
-    long_description=description + changelog,
+    long_description=description + '\n' + changelog,
     url=URL,
     download_url='%s/archive/%s.tar.gz' % (URL, VERSION),
 
