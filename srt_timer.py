@@ -65,6 +65,10 @@ def _get_out(text, output=None):
         print(text)
 
 
+def _reverse_flag(flag, body):
+    return tuple()
+
+
 def convert(arguments):
     new_subtitles = []
     last_end = timedelta(0)
@@ -137,6 +141,24 @@ def make_sdiff(arguments):
     _get_out(composed, arguments.output)
 
 
+def reverse_sdiff(arguments):
+    with open(arguments.input) as sdiff_file:
+        content = sdiff_file.read()
+    sdiff.validate(content)
+    start, end, flags = sdiff.parse(content)
+
+    new_start = end
+    new_end = start
+
+    new_flags = {}
+    for flag, body in flags.items():
+        new_flags.update(_reverse_flag(flag, body))
+
+    reversed_ = sdiff.compose(new_start, new_end, **new_flags)
+
+    _get_out(reversed_, arguments.output)
+
+
 def main():
     description = 'Script for simple creating subtitles with new timing.'
     parser = argparse.ArgumentParser(description=description)
@@ -175,6 +197,15 @@ def main():
     parser_ms.add_argument('-o', '--output', type=str,
                            help='name of the output sdiff file')
     parser_ms.set_defaults(func=make_sdiff)
+
+    reverse_sdiff_description = 'Reverse sdiff file, so backward conversion is possible'
+    parser_rs = subparsers.add_parser('reverse_sdiff',
+                                      description=reverse_sdiff_description)
+    parser_rs.add_argument('input', type=str,
+                           help='sdiff file')
+    parser_rs.add_argument('-o', '--output', type=str,
+                           help='name of the output sdiff file')
+    parser_rs.set_defaults(func=reverse_sdiff)
 
     args = parser.parse_args()
     if args.func:
