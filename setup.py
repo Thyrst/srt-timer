@@ -4,6 +4,7 @@ VERSION = '0.2'
 URL = 'https://github.com/Thyrst/srt-timer'
 
 description = open('README.rst').read()
+changelog = open('CHANGELOG.rst').read()
 
 setup(
     name='srt-timer',
@@ -11,7 +12,7 @@ setup(
 
     description='Simple script for saving difference of two subtitle timings. ' \
                 'You can than easily convert subtitle from one timing to another.',
-    long_description=description,
+    long_description=description + changelog,
     url=URL,
     download_url='%s/archive/%s.tar.gz' % (URL, VERSION),
 
