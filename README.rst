@@ -45,6 +45,9 @@ Usage manual
 
 For help just type ``srt_timer --help`` or ``srt_timer [command] --help``
 
+For all commands, the result is printed to the standard output by default.
+If you define the ``output`` argument, then it's printed to a specified file.
+
 convert
 ^^^^^^^
 
@@ -55,9 +58,6 @@ convert subtitles directly by providing ``original-timing`` and ``new-timing``
 arguments instead of ``sdiff`` argument. In the second case you can also
 provide the ``strip-original`` argument to strip surplus subtitles on the beginning
 of a file.
-
-The result is printed to the standard output by default. If you define the ``output``
-argument, then it's printed to a specified file.
 
 make_sdiff
 ^^^^^^^^^^
@@ -71,8 +71,18 @@ The ``strip-original`` argument should be number of the last subtitle
 in the "You've seen previously..." section if it isn't desired in a new subtitle version.
 If defined, it will trim all subtitles starting before or at the time of the provided subtitle.
 
-Same as for the ``convert`` command, the result is printed to the standard output
-if you don't define an ``output`` argument.
+reverse_sdiff
+^^^^^^^^^^^^^
+
+Create a sdiff file for the backwards conversion.
+
+This command expects just one argument ``input`` - a sdiff file.
+It will change its information, so it's possible to execute the opposite conversion.
+
+.. code-block:: bash
+
+    $ srt_timer reverse_sdiff repack2webdl.sdiff -o webdl2repack.sdiff
+
 
 Need help?
 ----------
