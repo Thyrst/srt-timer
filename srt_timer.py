@@ -137,7 +137,7 @@ def make_sdiff(arguments):
     _get_out(composed, arguments.output)
 
 
-if __name__ == '__main__':
+def main():
     description = 'Script for simple creating subtitles with new timing.'
     parser = argparse.ArgumentParser(description=description)
     subparsers = parser.add_subparsers(dest='command')
@@ -183,3 +183,7 @@ if __name__ == '__main__':
         except (FileNotFoundError, argparse.ArgumentError) as e:
             import sys
             sys.exit(str(e))
+
+
+if __name__ == '__main__':
+    main()
