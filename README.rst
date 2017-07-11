@@ -62,7 +62,7 @@ argument, then it's printed to a specified file.
 make_sdiff
 ^^^^^^^^^^
 
-Creates a sdiff file.
+Create a sdiff file.
 
 It has two required arguments: srt file with original timing and srt file with wanted timing.
 Optional arguments are ``strip-original`` and ``output``.
