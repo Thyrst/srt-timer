@@ -69,6 +69,10 @@ def _reverse_flag(flag, body):
     return tuple()
 
 
+def _reverse_dict(dictionary):
+    return {y: x for x, y in dictionary.items()}
+
+
 def convert(arguments):
     new_subtitles = []
     last_end = timedelta(0)
@@ -147,8 +151,8 @@ def reverse_sdiff(arguments):
     sdiff.validate(content)
     start, end, flags = sdiff.parse(content)
 
-    new_start = end
-    new_end = start
+    new_start = _reverse_dict(start)
+    new_end = _reverse_dict(end)
 
     new_flags = {}
     for flag, body in flags.items():
